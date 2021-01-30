@@ -7,9 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainController {
 
 
-     @GetMapping
+    @GetMapping
     public Object indexPage(){
-         return "Hello World";
-     }
+        return "Hello World";
+    }
+
+    @GetMapping("/brand")
+    public Object newPage(){
+        return "Brand new world";
+    }
 
 }
