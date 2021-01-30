@@ -28,10 +28,10 @@ class Social1ApplicationTests {
     @Test
     public void testHelloWorld() throws Exception{
 
-        given(postRepository.getPosts()).willReturn(1);
+        given(postRepository.getPosts()).willReturn(10);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(Matchers.equalTo("Hello World 1")));
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.equalTo("Hello Brave New World 10")));
     }
 }
