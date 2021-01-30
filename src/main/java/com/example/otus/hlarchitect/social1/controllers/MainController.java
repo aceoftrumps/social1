@@ -14,6 +14,6 @@ public class MainController {
     @GetMapping
     public Object indexPage(){
         final Integer posts = postRepository.getPosts();
-        return "Hello World " + posts;
+        return "Hello Brave New World " + posts;
     }
 }
