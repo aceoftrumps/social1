@@ -1,0 +1,11 @@
+server:
+  port: 80
+
+spring:
+  datasource:
+    url: jdbc:mysql://bc451ab1c0cf85:0d6ec4c2@eu-cdbr-west-03.cleardb.net/heroku_10e2fdabd9f23e4?reconnect=true
+    username: bc451ab1c0cf85
+    password: 0d6ec4c2
+
+  liquibase:
+    change-log: db/changelog/changelog.xml
