@@ -6,19 +6,23 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="1" author="admin">
+    <changeSet id="1" author="admin" >
         <sql>
-            CREATE TABLE test1 (
-            id INT NOT NULL,
-            PRIMARY KEY (id))
+            CREATE TABLE new_schema.users (
+                id INT NOT NULL,
+                name VARCHAR(45) NULL,
+                firstname VARCHAR(45) NULL,
+                lastname VARCHAR(45) NULL,
+                password VARCHAR(100) NULL,
+                age INT NULL,
+                sex INT NULL,
+                interests VARCHAR(200) NULL,
+                city VARCHAR(45) NULL,
+            PRIMARY KEY (id));
         </sql>
 
-        <rollback />
-    </changeSet>
-
-    <changeSet id="2" author="admin">
         <sql>
-            insert into test1 values(1)
+            insert into users(id, name, password) values(1, 'admin', '$2a$10$FlRYnKhJcMkFpUTUIF3iW.7BYoCzfA3igrePWQesmU/3v/nh2ic1a')
         </sql>
 
         <rollback />
