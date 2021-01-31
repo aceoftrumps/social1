@@ -25,13 +25,13 @@ class Social1ApplicationTests {
     @MockBean
     private PostRepository postRepository;
 
-    @Test
-    public void testHelloWorld() throws Exception{
-
-        given(postRepository.getPosts()).willReturn(10);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(Matchers.equalTo("Hello Brave New World 10")));
-    }
+//    @Test
+//    public void testHelloWorld() throws Exception{
+//
+//        given(postRepository.getPosts()).willReturn(10);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.content().string(Matchers.equalTo("Hello Brave New World 10")));
+//    }
 }
