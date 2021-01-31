@@ -1,5 +1,6 @@
 package com.example.otus.hlarchitect.social1.services.impl;
 
+import com.example.otus.hlarchitect.social1.UserPrincipal;
 import com.example.otus.hlarchitect.social1.model.User;
 import com.example.otus.hlarchitect.social1.repository.UserRepository;
 import com.example.otus.hlarchitect.social1.services.UserService;
@@ -59,6 +60,27 @@ public class UserServiceImpl implements UserService {
             errors = printErrors(validationErrors);
         }
         return errors;
+    }
+
+    @Override
+    public User getAuthenticatedUser() {
+        SecurityContext sc = SecurityContextHolder.getContext();
+        final Authentication authentication = sc.getAuthentication();
+        UserPrincipal userPrincipal = (UserPrincipal)authentication.getPrincipal();
+
+        return userPrincipal.getDbUser();
+    }
+
+    @Override
+    public void follow(String name) {
+        final User authenticatedUser = getAuthenticatedUser();
+        userRepository.follow(authenticatedUser.getId(), name);
+    }
+
+    @Override
+    public void unfollow(String name) {
+        final User authenticatedUser = getAuthenticatedUser();
+        userRepository.unfollow(authenticatedUser.getId(), name);
     }
 
     private List<String> printErrors(Set<ConstraintViolation<User>> validationErrors) {

@@ -9,4 +9,10 @@ public interface UserService {
     void saveAndAuthenticate(User user);
 
     List<String> validateUser(User user);
+
+    User getAuthenticatedUser();
+
+    void follow(String name);
+
+    void unfollow(String name);
 }

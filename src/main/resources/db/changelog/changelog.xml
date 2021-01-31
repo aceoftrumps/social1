@@ -8,7 +8,7 @@
 
     <changeSet id="1" author="admin" >
         <sql>
-            CREATE TABLE new_schema.users (
+            CREATE TABLE users (
                 id INT NOT NULL AUTO_INCREMENT,
                 name VARCHAR(45) NULL,
                 firstname VARCHAR(45) NULL,
@@ -21,11 +21,27 @@
             PRIMARY KEY (id));
         </sql>
 
-        <sql>
-            insert into users(name, password) values('admin', '$2a$10$FlRYnKhJcMkFpUTUIF3iW.7BYoCzfA3igrePWQesmU/3v/nh2ic1a')
-        </sql>
-
         <rollback />
+    </changeSet>
+
+    <changeSet id="2" author="admin">
+        <sql>
+            CREATE TABLE follow_map (
+                userId INT NOT NULL,
+                friendId INT NOT NULL,
+            PRIMARY KEY (userId, friendId),
+            INDEX FK_follow_map_friendId_idx (friendId ASC) VISIBLE,
+            CONSTRAINT FK_follow_map_userId
+                FOREIGN KEY (userId)
+                REFERENCES users (id)
+                ON DELETE NO ACTION
+                ON UPDATE NO ACTION,
+            CONSTRAINT FK_follow_map_friendId
+                FOREIGN KEY (friendId)
+                REFERENCES users (id)
+                ON DELETE NO ACTION
+                ON UPDATE NO ACTION);
+        </sql>
     </changeSet>
 
 
