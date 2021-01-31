@@ -30,7 +30,7 @@
                 userId INT NOT NULL,
                 friendId INT NOT NULL,
             PRIMARY KEY (userId, friendId),
-            INDEX FK_follow_map_friendId_idx (friendId ASC) VISIBLE,
+            INDEX FK_follow_map_friendId_idx (friendId ASC),
             CONSTRAINT FK_follow_map_userId
                 FOREIGN KEY (userId)
                 REFERENCES users (id)
