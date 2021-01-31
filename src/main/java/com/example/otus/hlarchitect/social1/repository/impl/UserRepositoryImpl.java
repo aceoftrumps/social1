@@ -24,4 +24,18 @@ public class UserRepositoryImpl implements UserRepository {
                 username);
         return userList.isEmpty() ? null : userList.get(0);
     }
+
+
+    @Override
+    public void save(User user) {
+        jdbcTemplate.update("insert into users(name, password, firstname, lastname, age, sex, interests, city) values(?,?,?,?,?,?,?,?)",
+                user.getName(),
+                user.getPassword(),
+                user.getFirstname(),
+                user.getLastname(),
+                user.getAge(),
+                user.getSex(),
+                user.getInterests(),
+                user.getCity());
+    }
 }

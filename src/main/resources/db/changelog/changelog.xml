@@ -9,20 +9,20 @@
     <changeSet id="1" author="admin" >
         <sql>
             CREATE TABLE new_schema.users (
-                id INT NOT NULL,
+                id INT NOT NULL AUTO_INCREMENT,
                 name VARCHAR(45) NULL,
                 firstname VARCHAR(45) NULL,
                 lastname VARCHAR(45) NULL,
                 password VARCHAR(100) NULL,
                 age INT NULL,
-                sex INT NULL,
+                sex VARCHAR(1) NULL,
                 interests VARCHAR(200) NULL,
                 city VARCHAR(45) NULL,
             PRIMARY KEY (id));
         </sql>
 
         <sql>
-            insert into users(id, name, password) values(1, 'admin', '$2a$10$FlRYnKhJcMkFpUTUIF3iW.7BYoCzfA3igrePWQesmU/3v/nh2ic1a')
+            insert into users(name, password) values('admin', '$2a$10$FlRYnKhJcMkFpUTUIF3iW.7BYoCzfA3igrePWQesmU/3v/nh2ic1a')
         </sql>
 
         <rollback />
