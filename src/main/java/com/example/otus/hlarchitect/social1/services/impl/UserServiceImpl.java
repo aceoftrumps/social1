@@ -1,6 +1,6 @@
 package com.example.otus.hlarchitect.social1.services.impl;
 
-import com.example.otus.hlarchitect.social1.UserPrincipal;
+import com.example.otus.hlarchitect.social1.configs.UserPrincipal;
 import com.example.otus.hlarchitect.social1.model.User;
 import com.example.otus.hlarchitect.social1.repository.UserRepository;
 import com.example.otus.hlarchitect.social1.services.UserService;

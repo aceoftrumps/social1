@@ -11,7 +11,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
 <body>
-<h2 class="form-signin-heading">Profile</h2>
+<h2 class="form-signin-heading" id="h-header">Social network</h2>
 <a th:href="@{/logout}">Logout</a>
 <div class="container">
     <div class="row">
@@ -47,6 +47,9 @@
 </body>
 <script type = "text/javascript">
     $(document).ready(function() {
+        $("#h-header").on('click', function(){
+            window.location = "/profile";
+        });
        fillProfileData();
     });
 

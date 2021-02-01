@@ -1,4 +1,4 @@
-package com.example.otus.hlarchitect.social1;
+package com.example.otus.hlarchitect.social1.configs;
 
 import com.example.otus.hlarchitect.social1.model.User;
 import lombok.Getter;

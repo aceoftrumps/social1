@@ -3,6 +3,7 @@ package com.example.otus.hlarchitect.social1.model;
 import lombok.Data;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -14,6 +15,7 @@ public class User {
 
     @Size(min = 3, max = 45, message
             = "nickname must be between 3 and 45 characters")
+    @Pattern(regexp = "^[A-Za-z0-9]+$", message = "nickname can have only letters or numbers")
     private String name;
 
     @Size(min = 3, max = 45, message

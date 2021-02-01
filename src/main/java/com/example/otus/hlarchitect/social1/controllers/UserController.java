@@ -14,13 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @RestController
-public class MainController {
+public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private ProfileService profileService;
 
 
     @PostMapping(value = "/signup_processed")
@@ -39,12 +36,6 @@ public class MainController {
         return new ModelAndView("redirect:/profile");
     }
 
-
-    @GetMapping("/profiledata")
-    public Object getProfileData(@RequestParam(required = false) String name){
-        Profile profile = profileService.getProfile(name);
-        return profile;
-    }
 
     @PostMapping("/follow")
     public void follow(@RequestBody MultiValueMap<String, String> formData){

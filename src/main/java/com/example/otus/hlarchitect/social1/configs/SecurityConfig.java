@@ -1,4 +1,4 @@
-package com.example.otus.hlarchitect.social1;
+package com.example.otus.hlarchitect.social1.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

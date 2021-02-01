@@ -1,4 +1,4 @@
-package com.example.otus.hlarchitect.social1;
+package com.example.otus.hlarchitect.social1.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
