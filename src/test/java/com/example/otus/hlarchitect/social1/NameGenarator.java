@@ -15,13 +15,13 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
 
-@SpringBootTest
+//@SpringBootTest
 public class NameGenarator {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @Test
+//    @Test
     void generateUsers(){
         final int usersCount = 1000000;
         final int batchSize = 500;
