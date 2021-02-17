@@ -16,4 +16,6 @@ public interface UserRepository {
     void follow(Integer id, String name);
 
     void unfollow(Integer id, String name);
+
+    List<User> findByFNameAndLName(String fname, String lname);
 }

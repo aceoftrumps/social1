@@ -83,6 +83,11 @@ public class UserServiceImpl implements UserService {
         userRepository.unfollow(authenticatedUser.getId(), name);
     }
 
+    @Override
+    public List<User> findUsers(String fname, String lname) {
+        return userRepository.findByFNameAndLName(fname, lname);
+    }
+
     private List<String> printErrors(Set<ConstraintViolation<User>> validationErrors) {
         return validationErrors.stream().map(ve -> ve.getMessage()).collect(Collectors.toList());
     }

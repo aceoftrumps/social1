@@ -1,9 +1,7 @@
 package com.example.otus.hlarchitect.social1.controllers;
 
 
-import com.example.otus.hlarchitect.social1.model.Profile;
 import com.example.otus.hlarchitect.social1.model.User;
-import com.example.otus.hlarchitect.social1.services.ProfileService;
 import com.example.otus.hlarchitect.social1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -50,6 +48,12 @@ public class UserController {
         userService.unfollow(name);
     }
 
+
+    @GetMapping("/user")
+    public Object getUser(@RequestParam(required = false) String fname,
+                          @RequestParam(required = false) String lname){
+        return userService.findUsers(fname, lname);
+    }
 
 
 }

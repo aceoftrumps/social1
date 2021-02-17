@@ -15,4 +15,6 @@ public interface UserService {
     void follow(String name);
 
     void unfollow(String name);
+
+    List<User> findUsers(String fname, String lname);
 }

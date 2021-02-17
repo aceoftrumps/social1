@@ -31,7 +31,8 @@ public class UserRepositoryImpl implements UserRepository {
         final String sql = "select u.* " +
                 "from users u join follow_map f ON u.id = f.friendId " +
                 "join users u2 ON f.userId = u2.id " +
-                "where u2.name = ?";
+                "where u2.name = ? " +
+                "limit 20";
 
         return jdbcTemplate.query(sql,
                 new BeanPropertyRowMapper<>(User.class),
@@ -46,7 +47,8 @@ public class UserRepositoryImpl implements UserRepository {
                 "WHERE NOT EXISTS (" +
                 "SELECT * FROM follow_map f JOIN users u2 ON f.userId = u2.id " +
                 "                    WHERE f.friendId = u.id AND u2.name = ?) " +
-                " AND u.name != ?";
+                " AND u.name != ? " +
+                "limit 20";
 
         return jdbcTemplate.query(sql,
                 new BeanPropertyRowMapper<>(User.class),
@@ -83,5 +85,18 @@ public class UserRepositoryImpl implements UserRepository {
                 "join users u ON u.id = f.friendId " +
                 "WHERE u.name = ? AND f.userid = ?";
         jdbcTemplate.update(sql, name, id);
+    }
+
+    @Override
+    public List<User> findByFNameAndLName(String fname, String lname) {
+//        final String sql = "select id, name, firstname, lastname, password, age, sex, interests, city " +
+        final String sql = "select id, firstname, lastname " +
+                "from users " +
+                "where firstname LIKE ? AND lastname LIKE ? " +
+                "order by id";
+        return jdbcTemplate.query(sql,
+                new BeanPropertyRowMapper<>(User.class),
+                fname + "%",
+                lname + "%");
     }
 }
