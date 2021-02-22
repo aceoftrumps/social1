@@ -1,0 +1,9 @@
+https://hackernoon.com/mysql-master-slave-replication-using-docker-3pp3u97
+https://mysqlhighavailability.com/setting-up-mysql-group-replication-with-mysql-docker-images/
+https://habr.com/ru/company/southbridge/blog/314212/
+https://dev.mysql.com/doc/refman/5.7/en/replication-mode-change-online-enable-gtids.html
+https://github.com/wagnerjfr/mysql-master-slaves-replication-docker
+https://dev.mysql.com/doc/refman/5.7/en/replication-solutions-switch.html
+https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-source-replica-replication-connection.html
+https://raymondhlee.wordpress.com/2014/03/01/setup-spring-transactions-for-mysql-replication/
+https://www.dragishak.com/?p=307
