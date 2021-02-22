@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class UserRepositoryImpl implements UserRepository {
 
 
     @Override
+    @Transactional(readOnly = false)
     public void save(User user) {
         jdbcTemplate.update("insert into users(name, password, firstname, lastname, age, sex, interests, city) values(?,?,?,?,?,?,?,?)",
                 user.getName(),
@@ -70,6 +72,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void follow(Integer id, String name) {
         String sql = "Insert into follow_map (userId, friendId) " +
                 "SELECT ?, id " +
@@ -79,6 +82,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void unfollow(Integer id, String name) {
         String sql = "delete f " +
                 "from follow_map f " +
@@ -88,8 +92,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> findByFNameAndLName(String fname, String lname) {
-//        final String sql = "select id, name, firstname, lastname, password, age, sex, interests, city " +
         final String sql = "select id, firstname, lastname " +
                 "from users " +
                 "where firstname LIKE ? AND lastname LIKE ? " +

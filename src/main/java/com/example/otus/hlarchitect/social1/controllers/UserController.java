@@ -3,6 +3,10 @@ package com.example.otus.hlarchitect.social1.controllers;
 
 import com.example.otus.hlarchitect.social1.model.User;
 import com.example.otus.hlarchitect.social1.services.UserService;
+import com.github.javafaker.Faker;
+import com.github.javafaker.Name;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
@@ -55,5 +59,25 @@ public class UserController {
         return userService.findUsers(fname, lname);
     }
 
+
+    @GetMapping(value = "/user/random")
+    public void createRandomUser()  {
+        Faker faker = new Faker();
+        Name name = faker.name();
+
+        User user = new User();
+        user.setName(name.username());
+        user.setFirstname(name.firstName());
+        user.setLastname(name.lastName());
+        user.setPassword(RandomStringUtils.randomAlphabetic(8));
+        user.setAge(RandomUtils.nextInt(18, 70));
+        user.setSex(RandomUtils.nextInt()%2 == 0 ? "M" : "F");
+        user.setInterests(RandomStringUtils.randomAlphabetic(10));
+        user.setCity(faker.address().city());
+
+        userService.save(user);
+
+        System.out.println(user + " created");
+    }
 
 }

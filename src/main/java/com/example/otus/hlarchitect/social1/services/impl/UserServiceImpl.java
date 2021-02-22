@@ -44,6 +44,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void save(User user){
+        String rawPassword = user.getPassword();
+        user.setPassword(passwordEncoder.encode(rawPassword));
+        userRepository.save(user);
+    }
+
+    @Override
     public List<String> validateUser(User user) {
         List<String> errors = new ArrayList<>();
 

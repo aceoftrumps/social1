@@ -44,5 +44,12 @@
         </sql>
     </changeSet>
 
+    <changeSet id="3" author="admin">
+        <sql>
+            create index idx_name
+            on users(firstName, lastName)
+        </sql>
+    </changeSet>
+
 
 </databaseChangeLog>

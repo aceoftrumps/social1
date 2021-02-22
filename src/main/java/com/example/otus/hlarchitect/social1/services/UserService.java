@@ -8,6 +8,8 @@ public interface UserService {
 
     void saveAndAuthenticate(User user);
 
+    void save(User user);
+
     List<String> validateUser(User user);
 
     User getAuthenticatedUser();
