@@ -3,12 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql:replication://localhost:4406,localhost:5506/mydb?allowSourceDownConnections=true&allowReplicasDownConnections=true
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/new_schema
     username: root
-    password: 111
-    #    url: jdbc:mysql://localhost:4406/mydb
-    #    url: jdbc:mysql://localhost:5506/mydb
-  #    url: jdbc:mysql:loadbalance://localhost:4406,localhost:5506/mydb?loadBalanceConnectionGroup=first&allowMasterDownConnections=false
+    password: developer
 
   liquibase:
     change-log: db/changelog/changelog.xml
