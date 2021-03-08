@@ -17,6 +17,8 @@ function fillProfileData() {
         fillUserList("#friendsList", profile.friends, profile.ownProfile, profile.friendOfOwnProfile, requestParamName, true);
         fillUserList("#nonFriendsList", profile.nonFriends, profile.ownProfile, profile.friendOfOwnProfile, requestParamName, false);
 
+        fillNews('myNewsList', profile.myNews);
+        fillNews('friendsNewsList', profile.friendsNews);
     });
 };
 
@@ -85,4 +87,35 @@ function follow(isFollow, name){
         .done(function() {
             fillProfileData();
         });
+}
+
+function addNews(){
+    var textArea = $('#addNewsTextarea');
+
+    $.post("news", { value: textArea.val() })
+        .done(function() {
+            fillProfileData();
+            textArea.val("");
+        });
+
+}
+
+function fillNews(elementId, news){
+    let id = elementId + "sub";
+    $('#' + id).remove();
+
+    var sub_ul = $('<ul/>', {id: id});
+    sub_ul.addClass("list-group list-group-flush");
+    $.each(news, function (index, newsItem) {
+        var sub_li = $('<li/>');
+        sub_li.addClass("list-group-item");
+
+
+        sub_li.append(newsItem);
+        sub_li.append("&nbsp;");
+
+        sub_ul.append(sub_li);
+    });
+    $('#' + elementId).append(sub_ul);
+
 }

@@ -33,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
                 "from users u join follow_map f ON u.id = f.friendId " +
                 "join users u2 ON f.userId = u2.id " +
                 "where u2.name = ? " +
-                "limit 20";
+                "limit 5";
 
         return jdbcTemplate.query(sql,
                 new BeanPropertyRowMapper<>(User.class),
@@ -49,7 +49,7 @@ public class UserRepositoryImpl implements UserRepository {
                 "SELECT * FROM follow_map f JOIN users u2 ON f.userId = u2.id " +
                 "                    WHERE f.friendId = u.id AND u2.name = ?) " +
                 " AND u.name != ? " +
-                "limit 20";
+                "limit 5";
 
         return jdbcTemplate.query(sql,
                 new BeanPropertyRowMapper<>(User.class),

@@ -14,4 +14,6 @@ public class Profile {
     private boolean isFriendOfOwnProfile;
     private List<User> friends;
     private List<User> nonFriends;
+    private List<String> myNews;
+    private List<String> friendsNews;
 }

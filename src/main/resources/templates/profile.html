@@ -42,6 +42,32 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;" >
+                <div class="card-body"  id="addNews">
+                    <h5 class="card-title">Add News</h5>
+                    <div class="form-group">
+                        <label for="addNewsTextarea">Example textarea</label>
+                        <textarea class="form-control" id="addNewsTextarea" rows="3"></textarea>
+                        <button type="button" id="addNewsButton" class="btn btn-success">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;" >
+                <div class="card-body"  id="myNewsList">
+                    <h5 class="card-title">My News</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;" >
+                <div class="card-body"  id="friendsNewsList">
+                    <h5 class="card-title">Friends News</h5>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
@@ -51,6 +77,10 @@
             window.location = "/profile";
         });
        fillProfileData();
+
+        $("#addNewsButton").on('click', function(){
+            addNews();
+        });
     });
 
 </script>

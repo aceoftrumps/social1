@@ -2,6 +2,7 @@ package com.example.otus.hlarchitect.social1.services.impl;
 
 import com.example.otus.hlarchitect.social1.model.Profile;
 import com.example.otus.hlarchitect.social1.model.User;
+import com.example.otus.hlarchitect.social1.repository.NewsRepository;
 import com.example.otus.hlarchitect.social1.repository.UserRepository;
 import com.example.otus.hlarchitect.social1.services.ProfileService;
 import com.example.otus.hlarchitect.social1.services.UserService;
@@ -18,6 +19,9 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private NewsRepository newsRepository;
 
     @Override
     public Profile getProfile(String name) {
@@ -36,9 +40,11 @@ public class ProfileServiceImpl implements ProfileService {
 
     private Profile getProfile(User user, boolean isOwnProfile, boolean isFriendOfOwnProfile){
         final List<User> friends = userRepository.findUserFriendsByUsername(user.getName());
-
         final List<User> nonFriends = userRepository.findUserNonFriendsByUsername(user.getName());
 
-        return new Profile(user, isOwnProfile, isFriendOfOwnProfile, friends, nonFriends);
+        final List<String> myNews = newsRepository.findMyNews(user.getId());
+        final List<String> friendsNews = newsRepository.findFriendsNews(user.getId());
+
+        return new Profile(user, isOwnProfile, isFriendOfOwnProfile, friends, nonFriends, myNews, friendsNews);
     }
 }
