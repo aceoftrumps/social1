@@ -31,9 +31,10 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     @Transactional(readOnly = true)
     public List<String> findFriendsNews(Integer userId) {
-        return jdbcTemplate.queryForList("select n.nValue " +
+        return jdbcTemplate.queryForList("select concat(u2.name, ': ', n.nValue) " +
                 "from users u Join follow_map f ON u.id = f.userId " +
                 "JOIN news n ON f.friendId = n.userId  " +
+                "JOIN users u2 ON f.friendId = u2.id  " +
                 "WHERE u.id = ? " +
                 "order by n.id desc limit 5",
                 String.class, userId);
