@@ -3,6 +3,8 @@ package com.example.otus.hlarchitect.social1.services.impl;
 import com.example.otus.hlarchitect.social1.configs.UserPrincipal;
 import com.example.otus.hlarchitect.social1.model.User;
 import com.example.otus.hlarchitect.social1.repository.UserRepository;
+import com.example.otus.hlarchitect.social1.services.FriendsCacheService;
+import com.example.otus.hlarchitect.social1.services.RabbitQueueService;
 import com.example.otus.hlarchitect.social1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,27 +29,29 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private AuthenticationManager authManager;
+    @Autowired
+    private RabbitQueueService rabbitQueueService;
+    @Autowired
+    private FriendsCacheService friendsCacheService;
 
     @Override
     public void saveAndAuthenticate(User user){
         String rawPassword = user.getPassword();
-        user.setPassword(passwordEncoder.encode(rawPassword));
-        userRepository.save(user);
+        save(user);
 
         authenticateUser(user.getName(), rawPassword);
     }
 
     @Override
     public void save(User user){
-        String rawPassword = user.getPassword();
-        user.setPassword(passwordEncoder.encode(rawPassword));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+
+        rabbitQueueService.addNewQueue(user.getName());
     }
 
     @Override
@@ -82,18 +86,21 @@ public class UserServiceImpl implements UserService {
     public void follow(String name) {
         final User authenticatedUser = getAuthenticatedUser();
         userRepository.follow(authenticatedUser.getId(), name);
+        friendsCacheService.addFriend(authenticatedUser.getName(), name);
     }
 
     @Override
     public void unfollow(String name) {
         final User authenticatedUser = getAuthenticatedUser();
         userRepository.unfollow(authenticatedUser.getId(), name);
+        friendsCacheService.removeFriend(authenticatedUser.getName(), name);
     }
 
     @Override
     public List<User> findUsers(String fname, String lname) {
         return userRepository.findByFNameAndLName(fname, lname);
     }
+
 
     private List<String> printErrors(Set<ConstraintViolation<User>> validationErrors) {
         return validationErrors.stream().map(ve -> ve.getMessage()).collect(Collectors.toList());

@@ -9,3 +9,9 @@ spring:
 
   liquibase:
     change-log: db/changelog/changelog.xml
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: rabbit
+    password: rabbit

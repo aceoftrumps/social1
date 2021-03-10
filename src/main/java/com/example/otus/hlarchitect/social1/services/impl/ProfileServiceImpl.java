@@ -4,6 +4,8 @@ import com.example.otus.hlarchitect.social1.model.Profile;
 import com.example.otus.hlarchitect.social1.model.User;
 import com.example.otus.hlarchitect.social1.repository.NewsRepository;
 import com.example.otus.hlarchitect.social1.repository.UserRepository;
+import com.example.otus.hlarchitect.social1.services.FriendsCacheService;
+import com.example.otus.hlarchitect.social1.services.NewsCacheService;
 import com.example.otus.hlarchitect.social1.services.ProfileService;
 import com.example.otus.hlarchitect.social1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Autowired
     private NewsRepository newsRepository;
+
+    @Autowired
+    private NewsCacheService newsCacheService;
 
     @Override
     public Profile getProfile(String name) {
@@ -43,7 +48,7 @@ public class ProfileServiceImpl implements ProfileService {
         final List<User> nonFriends = userRepository.findUserNonFriendsByUsername(user.getName());
 
         final List<String> myNews = newsRepository.findMyNews(user.getId());
-        final List<String> friendsNews = newsRepository.findFriendsNews(user.getId());
+        final List<String> friendsNews = newsCacheService.getNews(user.getName());
 
         return new Profile(user, isOwnProfile, isFriendOfOwnProfile, friends, nonFriends, myNews, friendsNews);
     }

@@ -7,7 +7,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 @Repository
@@ -102,5 +105,24 @@ public class UserRepositoryImpl implements UserRepository {
                 new BeanPropertyRowMapper<>(User.class),
                 fname + "%",
                 lname + "%");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public MultiValueMap<String, String> findAllFriends() {
+        final String sql = "select u1.name as user1, u2.name friend " +
+                "from users u1 " +
+                "LEFT join follow_map fm ON u1.id = fm.userId " +
+                "LEFT join users u2 ON u2.id = fm.friendId";
+
+        final MultiValueMap<String, String> multiValueMap = jdbcTemplate.query(sql, (ResultSet rs) -> {
+            MultiValueMap<String, String> mm = new LinkedMultiValueMap<>();
+            while (rs.next()) {
+                mm.add(rs.getString("user1"), rs.getString("friend"));
+            }
+            return mm;
+        });
+
+        return multiValueMap;
     }
 }
