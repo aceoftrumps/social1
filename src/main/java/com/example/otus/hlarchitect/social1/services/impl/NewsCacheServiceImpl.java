@@ -3,9 +3,9 @@ package com.example.otus.hlarchitect.social1.services.impl;
 import com.example.otus.hlarchitect.social1.services.FriendsCacheService;
 import com.example.otus.hlarchitect.social1.services.NewsCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+
 
 import java.util.List;
 
@@ -13,11 +13,13 @@ import java.util.List;
 @Service
 public class NewsCacheServiceImpl implements NewsCacheService {
 
+    private final static int MAX_FEED_SIZE = 5;
 
     @Autowired
-    FriendsCacheService friendsCacheService;
+    private FriendsCacheService friendsCacheService;
 
-    private MultiValueMap<String, String> news = new LinkedMultiValueMap<>();
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
 
     @Override
@@ -25,13 +27,24 @@ public class NewsCacheServiceImpl implements NewsCacheService {
         final List<String> friends = friendsCacheService.getFriends(newsPoster);
 
         friends.forEach(userName ->
-                news.add(userName, newsPoster + ": " + newsMessage));
+                addNews(userName, buildNewsMessage(newsPoster, newsMessage)));
+    }
+
+    private String buildNewsMessage(String newsPoster, String newsMessage) {
+        return newsPoster + ": " + newsMessage;
     }
 
     @Override
     public List<String> getNews(String userName){
-        return this.news.get(userName);
+        return redisTemplate.opsForList().range(userName, 0, MAX_FEED_SIZE - 1);
     }
 
+    private void addNews(String userName, String newsItem){
+        redisTemplate.opsForList().leftPush(userName, newsItem);
 
+        //trim cache list if size > MAX_SIZE
+        if (redisTemplate.opsForList().size(userName) > MAX_FEED_SIZE){
+            redisTemplate.opsForList().trim(userName, 0, MAX_FEED_SIZE - 1);
+        }
+    }
 }
