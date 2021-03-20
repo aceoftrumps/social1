@@ -7,3 +7,6 @@ spring:
 
   liquibase:
     change-log: db/changelog/changelog.xml
+
+  rabbitmq:
+    url: ${CLOUDAMQP_URL}
