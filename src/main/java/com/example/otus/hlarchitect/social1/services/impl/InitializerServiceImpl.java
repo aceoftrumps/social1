@@ -1,7 +1,7 @@
 package com.example.otus.hlarchitect.social1.services.impl;
 
 import com.example.otus.hlarchitect.social1.repository.UserRepository;
-import com.example.otus.hlarchitect.social1.services.FriendsCacheService;
+import com.example.otus.hlarchitect.social1.services.FollowerCacheService;
 import com.example.otus.hlarchitect.social1.services.RabbitQueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -14,16 +14,16 @@ public class InitializerServiceImpl {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private FriendsCacheService friendsCacheService;
+    private FollowerCacheService followerCacheService;
     @Autowired
     private RabbitQueueService rabbitQueueService;
 
 
     @EventListener
     private void onApplicationEvent(ContextRefreshedEvent event) {
-        friendsCacheService.setFriends(userRepository.findAllFriends());
+        followerCacheService.setFollowers(userRepository.findAllFriends());
 
-        friendsCacheService.getAllUsers().forEach(userName ->
+        followerCacheService.getAllUsers().forEach(userName ->
                 rabbitQueueService.addNewQueue(userName)
         );
     }

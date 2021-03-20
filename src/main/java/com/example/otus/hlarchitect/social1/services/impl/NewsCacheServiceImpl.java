@@ -1,6 +1,6 @@
 package com.example.otus.hlarchitect.social1.services.impl;
 
-import com.example.otus.hlarchitect.social1.services.FriendsCacheService;
+import com.example.otus.hlarchitect.social1.services.FollowerCacheService;
 import com.example.otus.hlarchitect.social1.services.NewsCacheService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class NewsCacheServiceImpl implements NewsCacheService {
     private final static int MAX_FEED_SIZE = 5;
 
     @Autowired
-    private FriendsCacheService friendsCacheService;
+    private FollowerCacheService followerCacheService;
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -27,9 +27,9 @@ public class NewsCacheServiceImpl implements NewsCacheService {
     @Override
     public void putNewsItem(String newsPoster, String newsMessage) {
         log.info("put news item '{}' from {} into cahce", newsMessage, newsPoster);
-        final List<String> friends = friendsCacheService.getFriends(newsPoster);
+        final List<String> followers = followerCacheService.getFollowers(newsPoster);
 
-        friends.forEach(userName ->
+        followers.forEach(userName ->
                 addNews(userName, buildNewsMessage(newsPoster, newsMessage)));
     }
 

@@ -4,7 +4,6 @@ import com.example.otus.hlarchitect.social1.model.Profile;
 import com.example.otus.hlarchitect.social1.model.User;
 import com.example.otus.hlarchitect.social1.repository.NewsRepository;
 import com.example.otus.hlarchitect.social1.repository.UserRepository;
-import com.example.otus.hlarchitect.social1.services.FriendsCacheService;
 import com.example.otus.hlarchitect.social1.services.NewsCacheService;
 import com.example.otus.hlarchitect.social1.services.ProfileService;
 import com.example.otus.hlarchitect.social1.services.UserService;

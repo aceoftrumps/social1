@@ -3,7 +3,7 @@ package com.example.otus.hlarchitect.social1.services.impl;
 import com.example.otus.hlarchitect.social1.configs.UserPrincipal;
 import com.example.otus.hlarchitect.social1.model.User;
 import com.example.otus.hlarchitect.social1.repository.UserRepository;
-import com.example.otus.hlarchitect.social1.services.FriendsCacheService;
+import com.example.otus.hlarchitect.social1.services.FollowerCacheService;
 import com.example.otus.hlarchitect.social1.services.RabbitQueueService;
 import com.example.otus.hlarchitect.social1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RabbitQueueService rabbitQueueService;
     @Autowired
-    private FriendsCacheService friendsCacheService;
+    private FollowerCacheService followerCacheService;
 
     @Override
     public void saveAndAuthenticate(User user){
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
-        friendsCacheService.addNewUser(user.getName());
+        followerCacheService.addNewUser(user.getName());
         rabbitQueueService.addNewQueue(user.getName());
     }
 
@@ -87,14 +87,14 @@ public class UserServiceImpl implements UserService {
     public void follow(String name) {
         final User authenticatedUser = getAuthenticatedUser();
         userRepository.follow(authenticatedUser.getId(), name);
-        friendsCacheService.addFriend(authenticatedUser.getName(), name);
+        followerCacheService.addFollower(name, authenticatedUser.getName());
     }
 
     @Override
     public void unfollow(String name) {
         final User authenticatedUser = getAuthenticatedUser();
         userRepository.unfollow(authenticatedUser.getId(), name);
-        friendsCacheService.removeFriend(authenticatedUser.getName(), name);
+        followerCacheService.removeFollower(name, authenticatedUser.getName());
     }
 
     @Override

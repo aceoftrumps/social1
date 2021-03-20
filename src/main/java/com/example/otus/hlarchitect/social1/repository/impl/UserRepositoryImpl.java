@@ -113,8 +113,8 @@ public class UserRepositoryImpl implements UserRepository {
     public MultiValueMap<String, String> findAllFriends() {
         final String sql = "select u1.name as user1, u2.name friend " +
                 "from users u1 " +
-                "LEFT join follow_map fm ON u1.id = fm.userId " +
-                "LEFT join users u2 ON u2.id = fm.friendId";
+                "LEFT join follow_map fm ON u1.id = fm.friendId " +
+                "LEFT join users u2 ON u2.id = fm.userId";
 
         final MultiValueMap<String, String> multiValueMap = jdbcTemplate.query(sql, (ResultSet rs) -> {
             MultiValueMap<String, String> mm = new LinkedMultiValueMap<>();
