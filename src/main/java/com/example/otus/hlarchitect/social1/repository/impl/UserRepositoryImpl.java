@@ -11,6 +11,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -118,7 +119,13 @@ public class UserRepositoryImpl implements UserRepository {
         final MultiValueMap<String, String> multiValueMap = jdbcTemplate.query(sql, (ResultSet rs) -> {
             MultiValueMap<String, String> mm = new LinkedMultiValueMap<>();
             while (rs.next()) {
-                mm.add(rs.getString("user1"), rs.getString("friend"));
+
+                final String friend = rs.getString("friend");
+                final String user = rs.getString("user1");
+                if (friend != null) {
+                    mm.add(user, friend);
+                } else
+                    mm.put(user, new ArrayList<>());
             }
             return mm;
         });

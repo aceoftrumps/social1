@@ -15,3 +15,6 @@ spring:
     port: 5672
     username: rabbit
     password: rabbit
+
+  redis:
+    url: redis://:@localhost:6379
