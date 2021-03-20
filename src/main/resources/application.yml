@@ -10,3 +10,6 @@ spring:
 
   rabbitmq:
     url: ${CLOUDAMQP_URL}
+
+  redis:
+    url: ${STACKHERO_REDIS_URL_CLEAR}
