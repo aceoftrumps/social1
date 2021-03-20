@@ -12,7 +12,7 @@ spring:
     host: ${CLOUDAMQP_HOST}
     username: ${CLOUDAMQP_USER}
     password: ${CLOUDAMQP_PASSWORD}
-#    virtual-host: ${CLOUDAMQP_VHOST}
+    virtual-host: ${CLOUDAMQP_VHOST}
 
   redis:
     url: ${REDIS_URL}
