@@ -9,7 +9,10 @@ spring:
     change-log: db/changelog/changelog.xml
 
   rabbitmq:
-    addresses: ${CLOUDAMQP_URL}
+    host: ${CLOUDAMQP_HOST}
+    username: ${CLOUDAMQP_USER}
+    password: ${CLOUDAMQP_PASSWORD}
+    virtual-host: ${CLOUDAMQP_VHOST}
 
   redis:
     url: ${STACKHERO_REDIS_URL_CLEAR}
