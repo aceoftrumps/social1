@@ -15,4 +15,4 @@ spring:
     virtual-host: ${CLOUDAMQP_VHOST}
 
   redis:
-    url: ${STACKHERO_REDIS_URL_CLEAR}
+    url: ${REDIS_URL}
