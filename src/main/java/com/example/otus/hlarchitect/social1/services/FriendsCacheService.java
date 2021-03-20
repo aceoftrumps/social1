@@ -16,4 +16,6 @@ public interface FriendsCacheService {
     void addFriend(String userName, String friendName);
 
     List<String> getFriends(String newsPoster);
+
+    void addNewUser(String userName);
 }

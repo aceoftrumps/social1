@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
+        friendsCacheService.addNewUser(user.getName());
         rabbitQueueService.addNewQueue(user.getName());
     }
 

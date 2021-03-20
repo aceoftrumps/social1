@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -34,5 +35,10 @@ public class FriendsCacheServiceImpl implements FriendsCacheService {
     @Override
     public void addFriend(String userName, String friendName){
         this.friends.add(userName, friendName);
+    }
+
+    @Override
+    public void addNewUser(String userName){
+        this.friends.put(userName, new ArrayList<>());
     }
 }
