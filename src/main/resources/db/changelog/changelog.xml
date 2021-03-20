@@ -62,7 +62,7 @@
             INDEX userId_idx (userId ASC),
             CONSTRAINT FK_news_user
                 FOREIGN KEY (userId)
-                REFERENCES new_schema.users (id)
+                REFERENCES users (id)
                 ON DELETE NO ACTION
                 ON UPDATE NO ACTION);
         </sql>
