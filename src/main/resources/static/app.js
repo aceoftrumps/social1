@@ -91,12 +91,15 @@ function follow(isFollow, name){
 
 function addNews(){
     var textArea = $('#addNewsTextarea');
+    let newsItem = textArea.val().trim();
 
-    $.post("news", { value: textArea.val() })
-        .done(function() {
-            fillProfileData();
-            textArea.val("");
-        });
+    if (newsItem !== '') {
+        $.post("news", {value: newsItem})
+            .done(function () {
+                fillProfileData();
+                textArea.val('');
+            });
+    }
 
 }
 

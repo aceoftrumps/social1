@@ -21,10 +21,18 @@ public class InitializerServiceImpl {
 
     @EventListener
     private void onApplicationEvent(ContextRefreshedEvent event) {
-        followerCacheService.setFollowers(userRepository.findAllFriends());
+        fillFollowers();
+        createQueues();
+    }
 
+
+    private void createQueues() {
         followerCacheService.getAllUsers().forEach(userName ->
                 rabbitQueueService.addNewQueue(userName)
         );
+    }
+
+    private void fillFollowers() {
+        followerCacheService.setFollowers(userRepository.findAllFriends());
     }
 }

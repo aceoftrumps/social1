@@ -1,5 +1,7 @@
 package com.example.otus.hlarchitect.social1.repository;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 public interface NewsRepository {
@@ -9,4 +11,5 @@ public interface NewsRepository {
 
     List<String> findFriendsNews(Integer userId);
 
+    List<String> findFriendsNews(String userName);
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface NewsCacheService {
 
-    void putNewsItem(String newsPoster, String newsMessage);
+    void putNewsItemToAllFollowers(String newsPoster, String newsMessage);
 
     List<String> getNews(String userName);
 

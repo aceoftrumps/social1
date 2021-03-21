@@ -38,7 +38,7 @@ public class RabbitQueueServiceImpl implements RabbitQueueService {
     public void receiver(Message message, String newsMessage) {
         final String newsPoster = message.getMessageProperties().getConsumerQueue();
         log.info("received Message from rabbit : " + message);
-        newsCacheService.putNewsItem(newsPoster, newsMessage);
+        newsCacheService.putNewsItemToAllFollowers(newsPoster, newsMessage);
     }
 
 
